@@ -61,7 +61,6 @@ class Dataset(BaseDataset):
             # print(image.shape)
             # print(mask.shape)
             sample = self.augmentation(image=image, mask=mask)
-            
             image, mask = sample['image'], sample['mask']
 
         # apply preprocessing
@@ -69,7 +68,7 @@ class Dataset(BaseDataset):
             sample = self.preprocessing(image=image, mask=mask)
             image, mask = sample['image'], sample['mask']
 
-        return image, mask, image_path
+        return image, mask #, image_path
 
     def __len__(self):
         return len(self.ids)
