@@ -30,7 +30,7 @@ import torch.optim.lr_scheduler as schedulers
 
 import mlflow
 
-from dataset.Dataset import Dataset, get_training_augmentation, get_validation_augmentation, get_preprocessing
+from Dataset import Dataset, get_training_augmentation, get_validation_augmentation, get_preprocessing
 
 import segmentation_models_pytorch as smp
 #from segmentation_models_pytorch import metrics
