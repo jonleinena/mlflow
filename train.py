@@ -33,6 +33,7 @@ import mlflow
 from dataset import Dataset, get_training_augmentation, get_validation_augmentation, get_preprocessing
 
 import segmentation_models_pytorch as smp
+import segmentation_models_pytorch.utils as utils
 #from segmentation_models_pytorch import metrics
 # SSL: CERTIFICATE_VERIFY_FAILED solution
 import ssl
@@ -207,24 +208,24 @@ def main():
 
     
     if config.loss == "jaccard":
-        loss = smp.utils.losses.JaccardLoss()
+        loss = utils.losses.JaccardLoss()
     elif config.loss == "dice":
-        loss= smp.utils.losses.DiceLoss()
+        loss= utils.losses.DiceLoss()
     elif config.loss == 'cross_entropy':
-        loss = smp.utils.losses.CrossEntropyLoss()
+        loss = utils.losses.CrossEntropyLoss()
     elif config.loss == 'bce':
-        loss = smp.utils.losses.BCELoss()
+        loss = utils.losses.BCELoss()
     elif config.loss == 'bce_dice':
-        loss = smp.utils.losses.BCEDiceLoss()
+        loss = utils.losses.BCEDiceLoss()
     else:
         return False
 
 
     metrics = [
-        smp.utils.metrics.IoU(threshold=0.5),
-        smp.utils.metrics.Accuracy(),
-        smp.utils.metrics.Precision(),
-        smp.utils.metrics.Recall()
+        utils.metrics.IoU(threshold=0.5),
+        utils.metrics.Accuracy(),
+        utils.metrics.Precision(),
+        utils.metrics.Recall()
     ]
 
 
@@ -264,7 +265,7 @@ def main():
         train_scheduler = None
     
     
-    train_epoch = smp.utils.train.TrainEpoch(
+    train_epoch = utils.train.TrainEpoch(
         model, 
         loss=loss, 
         metrics=metrics, 
@@ -275,7 +276,7 @@ def main():
     )
 
 
-    valid_epoch = smp.utils.train.ValidEpoch(
+    valid_epoch = utils.train.ValidEpoch(
         model, 
         loss=loss, 
         metrics=metrics,    
