@@ -90,7 +90,7 @@ def get_training_augmentation(img_height, img_width):
         albu.OneOf(
             [
                 albu.CLAHE(p=1),
-                albu.RandomBrightness(p=1),
+                albu.RandomBrightnessContrast(p=1),
                 albu.RandomGamma(p=1),
             ],
             p=0.9,
@@ -100,7 +100,6 @@ def get_training_augmentation(img_height, img_width):
             [
                 albu.Sharpen(p=1),
                 albu.Blur(blur_limit=3, p=1),
-                albu.MotionBlur(blur_limit=3, p=1),
             ],
             p=0.9,
         ),
