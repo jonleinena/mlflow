@@ -29,7 +29,7 @@ from torch.utils.data import Dataset as BaseDataset
 import torch.optim.lr_scheduler as schedulers
 
 import mlflow
-
+import mlflow.pytorch
 from dataset import Dataset, get_training_augmentation, get_validation_augmentation, get_preprocessing
 
 import segmentation_models_pytorch as smp
@@ -309,7 +309,7 @@ def main():
             max_score = valid_logs['iou_score']
             #torch.save(model, './output/' + config.network + '_' + config.encoder + '_' + config.loss + '_bsz' + str(config.batch) + '_size' + str(config.img_height) + '_' + str(config.scheduler)+  '_p' + str(config.patience)+ '_best_model.pth')
             model_name = 'model_' + config.network + '_' + config.encoder + '_' + config.loss + '_bsz' + str(config.batch) + '_p' + str(config.patience) + dt_string
-            mlflow.log_model(model, model_name, registered_model_name = 'model_' + config.network + '_' + config.encoder + '_' + config.loss + '_bsz' + str(config.batch))
+            mlflow.pytorch.log_model(model, model_name, registered_model_name = 'model_' + config.network + '_' + config.encoder + '_' + config.loss + '_bsz' + str(config.batch))
             best_epoch = i            
         
         
