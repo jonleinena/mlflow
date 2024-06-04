@@ -4,10 +4,10 @@ import argparse
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--network', type=str)
-    parser.add_argument('--ecnoder', type=str)
-    parser.add_argument('--loss', type=str)
-    parser.add_argument('--batch', type=int)
+    parser.add_argument('--network', type=str, default='unet')
+    parser.add_argument('--encoder', type=str, default='se_resnext50_32x4d')
+    parser.add_argument('--loss', type=str, default="dice")
+    parser.add_argument('--batch', type=int, default=1)
     opt = parser.parse_args()
     return opt
 

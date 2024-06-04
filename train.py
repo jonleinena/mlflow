@@ -52,10 +52,10 @@ def parse_arguments():
     """
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--batch", type=int, default=32)
+    parser.add_argument("--batch", type=int, default=1)
     # ALWAYS THE VALUES OF HEIGHT AND WIDTH MUST BE MULTIPLE OF 32!!
-    parser.add_argument("--img_height", type=int, default=1024, help="size of image height")
-    parser.add_argument("--img_width", type=int, default=1024, help="size of image width")
+    parser.add_argument("--img_height", type=int, default=224, help="size of image height")
+    parser.add_argument("--img_width", type=int, default=224, help="size of image width")
     parser.add_argument("--encoder", type=str, default='se_resnext50_32x4d')
     parser.add_argument("--encoder_weights", type=str, default='imagenet')    
     parser.add_argument("--activation", type=str, default='sigmoid')
