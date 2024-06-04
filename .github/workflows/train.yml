@@ -34,7 +34,7 @@ jobs:
       run: |
         git config --local user.email "leinenajon@gmail.com"
         git config --local user.name "jonleinena"
-        git add mlruns
+        git add .
         git commit -m "Add MLFlow artifacts" || echo "No changes to commit"
         git push
     - name: Select Best Model

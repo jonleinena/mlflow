@@ -1,4 +1,4 @@
-*ray_app.py
+ray_app.py
 
-*__pycache
+__pycache__/*
 *.vscode
