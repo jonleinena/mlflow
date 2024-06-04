@@ -35,6 +35,9 @@ from dataset import Dataset, get_training_augmentation, get_validation_augmentat
 import segmentation_models_pytorch as smp
 #from segmentation_models_pytorch import metrics
 # SSL: CERTIFICATE_VERIFY_FAILED solution
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+#
 
 """
 Training script
