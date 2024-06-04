@@ -259,12 +259,6 @@ def main():
 
     # create epoch runners 
     # it is a simple loop of iterating over dataloader`s samples
-    if config.scheduler == 'onecyclelr':
-        train_scheduler = scheduler
-    else:
-        train_scheduler = None
-    
-    
     train_epoch = utils.train.TrainEpoch(
         model, 
         loss=loss, 
@@ -272,7 +266,6 @@ def main():
         optimizer=optimizer,
         device=DEVICE,
         verbose=True,
-        scheduler=train_scheduler,
     )
 
 
