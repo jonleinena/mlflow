@@ -1,5 +1,5 @@
-import mlflow
-
+""" import mlflow
+import os
 import argparse
 
 def parse_arguments():
@@ -10,6 +10,8 @@ def parse_arguments():
     parser.add_argument('--batch', type=int, default=1)
     opt = parser.parse_args()
     return opt
+
+
 
 def select_best():
     config = parse_arguments()
@@ -23,7 +25,7 @@ def select_best():
 
     best_iou = 0
     best_model_version = None
-
+    
     # Iterate over each model version
     for model in registered_models:
         # Get metrics for each model version
@@ -34,7 +36,10 @@ def select_best():
         if iou_score and iou_score > best_iou:
             best_iou = iou_score
             best_model_version = model.version
+    
 
+    
+    
     # Transition the best model to production
     if best_model_version:
         client.transition_model_version_stage(
@@ -49,4 +54,4 @@ def select_best():
 
 if __name__ == "__main__":
     # Specify the registered model name
-    select_best()
+    select_best() """
