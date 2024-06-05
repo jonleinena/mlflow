@@ -5,7 +5,7 @@ import argparse
 def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--network', type=str, default='unet')
-    parser.add_argument('--encoder', type=str, default='se_resnext50_32x4d')
+    parser.add_argument('--encoder', type=str, default='efficientnet-b0')
     parser.add_argument('--loss', type=str, default="dice")
     parser.add_argument('--batch', type=int, default=1)
     opt = parser.parse_args()
@@ -21,7 +21,7 @@ def select_best():
     filter_string = f"name='{model_name}'"
     registered_models = client.search_model_versions(filter_string)
 
-    best_iou = -float('inf')
+    best_iou = 0
     best_model_version = None
 
     # Iterate over each model version
