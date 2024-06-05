@@ -5,46 +5,45 @@ on:
     branches:
       - master
     paths-ignore:
-      - '${{ github.workspace }}/mlruns'
-
+      - ${{ github.workspace }}/mlruns
 jobs:
   train:
-  if: "!contains(github.event.head_commit.message, 'No changes to commit')"
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
-    - name: Create MLFlow tracking directory
-      run: mkdir -p ${{ github.workspace }}/mlruns
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-    - name: Start MLFlow Tracking Server
-      run: |
-        mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlflow-artifacts --host 0.0.0.0 &
-    - name: Set MLFlow Tracking URI
-      run: echo "MLFLOW_TRACKING_URI=http://127.0.0.1:5000" >> $GITHUB_ENV
-    
-    - name: Run training script
-      #env:
-        #MLFLOW_TRACKING_URI: file://${{ github.workspace }}/mlruns
-      run: |
-        python train.py
-    - name: Commit MLFlow Artifacts
-      run: |
-        git config --local user.email "leinenajon@gmail.com"
-        git config --local user.name "jonleinena"
-        git add .
-        git commit -m "Add MLFlow artifacts" || echo "No changes to commit"
-        git push
-    - name: Select Best Model
-      run: |
-        python select_best_model.py
-    - name: Build and Push Docker Image
-      run: |
-        cd ./api
-        docker build -t mymodel:latest .
-        docker push mymodel:latest
+    if: "!contains(github.event.head_commit.message, 'No changes to commit')"
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Create MLFlow tracking directory
+        run: mkdir -p ${{ github.workspace }}/mlruns
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Start MLFlow Tracking Server
+        run: |
+          mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlflow-artifacts --host 0.0.0.0 &
+      - name: Set MLFlow Tracking URI
+        run: echo "MLFLOW_TRACKING_URI=http://127.0.0.1:5000" >> $GITHUB_ENV
+      
+      - name: Run training script
+        #env:
+          #MLFLOW_TRACKING_URI: file://${{ github.workspace }}/mlruns
+        run: |
+          python train.py
+      - name: Commit MLFlow Artifacts
+        run: |
+          git config --local user.email "leinenajon@gmail.com"
+          git config --local user.name "jonleinena"
+          git add .
+          git commit -m "Add MLFlow artifacts" || echo "No changes to commit"
+          git push
+      - name: Select Best Model
+        run: |
+          python select_best_model.py
+      - name: Build and Push Docker Image
+        run: |
+          cd ./api
+          docker build -t mymodel:latest .
+          docker push mymodel:latest
