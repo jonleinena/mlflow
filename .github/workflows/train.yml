@@ -6,6 +6,7 @@ on:
       - master
     paths-ignore:
       - 'mlruns/**'
+      - 'mlflow-artifacts/**'
 jobs:
   train:
     if: "!contains(github.event.head_commit.message, 'No changes to commit')"
@@ -45,5 +46,6 @@ jobs:
     - name: Build and Push Docker Image
       run: |
         cd ./api
-        docker build -t mymodel:latest .
-        docker push mymodel:latest
+        docker build -t jonle/mlops:latest .
+        echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        docker push jonle/mlops:latest
