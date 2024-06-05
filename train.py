@@ -60,7 +60,7 @@ def parse_arguments():
     # ALWAYS THE VALUES OF HEIGHT AND WIDTH MUST BE MULTIPLE OF 32!!
     parser.add_argument("--img_height", type=int, default=224, help="size of image height")
     parser.add_argument("--img_width", type=int, default=224, help="size of image width")
-    parser.add_argument("--encoder", type=str, default='se_resnext50_32x4d')
+    parser.add_argument("--encoder", type=str, default='efficientnet-b0')
     parser.add_argument("--encoder_weights", type=str, default='imagenet')    
     parser.add_argument("--activation", type=str, default='sigmoid')
     parser.add_argument("--classes", type=str,  nargs='+', default=['patches', 'inclusion', 'scratches'])         
@@ -130,6 +130,7 @@ def main():
             encoder_weights=ENCODER_WEIGHTS, 
             classes=len(CLASSES), 
             activation=ACTIVATION,
+            encoder_depth=2
         )    
     elif config.network == 'deeplabv3':
         # create segmentation model with pretrained encoder
