@@ -130,7 +130,6 @@ def main():
             encoder_weights=ENCODER_WEIGHTS, 
             classes=len(CLASSES), 
             activation=ACTIVATION,
-            encoder_depth=2
         )    
     elif config.network == 'deeplabv3':
         # create segmentation model with pretrained encoder
